@@ -12,11 +12,11 @@ export const metadata = {
   openGraph: {
     title: 'Sahar Abudi Portfolio',
     description: 'Explore real-world data projects and dashboards built with clarity and insight.',
-    url: 'https://saharabudi.vercel.app', // שנה אם יש לך דומיין משלך
+    url: 'https://saharabudi.vercel.app',
     siteName: 'Sahar Abudi Portfolio',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.jpg', // ✅ מעודכן
         width: 1200,
         height: 630,
         alt: 'Sahar Abudi Portfolio Preview',
@@ -29,7 +29,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Sahar Abudi Portfolio',
     description: 'Explore real-world data projects and dashboards built with clarity and insight.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.jpg'], // ✅ מעודכן
   },
 }
 
