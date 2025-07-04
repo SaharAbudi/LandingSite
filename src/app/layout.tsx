@@ -14,22 +14,13 @@ export const metadata = {
     description: 'Explore real-world data projects and dashboards built with clarity and insight.',
     url: 'https://saharabudi.vercel.app',
     siteName: 'Sahar Abudi Portfolio',
-    images: [
-      {
-        url: '/og-image.jpg', // ✅ מעודכן
-        width: 1200,
-        height: 630,
-        alt: 'Sahar Abudi Portfolio Preview',
-      },
-    ],
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Sahar Abudi Portfolio',
     description: 'Explore real-world data projects and dashboards built with clarity and insight.',
-    images: ['/og-image.jpg'], // ✅ מעודכן
   },
 }
 
@@ -45,6 +36,19 @@ export default function RootLayout({
         {/* Header */}
         <header className="bg-[#1877F2] shadow-md sticky top-0 z-50">
           <div className="w-full max-w-6xl mx-auto px-6 py-4 flex justify-between items-center text-base">
+            
+            {/* Left Side - Favicon as logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/favicon.ico"
+                alt="Logo"
+                width={28}
+                height={28}
+                className="rounded shadow"
+              />
+              <span className="text-white font-semibold hidden sm:inline">Sahar Abudi</span>
+            </Link>
+
             {/* Navigation */}
             <nav className="flex gap-8 items-center text-white">
               <Link href="/" className="flex items-center gap-2 hover:text-blue-200 transition">
