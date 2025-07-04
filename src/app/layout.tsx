@@ -9,6 +9,28 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' })
 export const metadata = {
   title: 'Sahar Abudi Portfolio',
   description: 'Projects and dashboards by a data-driven analyst',
+  openGraph: {
+    title: 'Sahar Abudi Portfolio',
+    description: 'Explore real-world data projects and dashboards built with clarity and insight.',
+    url: 'https://saharabudi.vercel.app', // שנה אם יש לך דומיין משלך
+    siteName: 'Sahar Abudi Portfolio',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Sahar Abudi Portfolio Preview',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sahar Abudi Portfolio',
+    description: 'Explore real-world data projects and dashboards built with clarity and insight.',
+    images: ['/og-image.jpg'],
+  },
 }
 
 export default function RootLayout({
@@ -23,9 +45,6 @@ export default function RootLayout({
         {/* Header */}
         <header className="bg-[#1877F2] shadow-md sticky top-0 z-50">
           <div className="w-full max-w-6xl mx-auto px-6 py-4 flex justify-between items-center text-base">
-            
-            
-
             {/* Navigation */}
             <nav className="flex gap-8 items-center text-white">
               <Link href="/" className="flex items-center gap-2 hover:text-blue-200 transition">
@@ -50,7 +69,6 @@ export default function RootLayout({
         <footer className="bg-white border-t border-[#DADDE1] text-center text-sm py-4 text-gray-500">
           © {new Date().getFullYear()} Sahar Abudi
         </footer>
-
 
       </body>
     </html>
