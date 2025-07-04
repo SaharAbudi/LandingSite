@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { BarChart4, Brain } from 'lucide-react'
 import { motion } from 'framer-motion'
+import FadeInOnScroll from '../../components/FadeInOnScroll'
 
 const projects = [
   {
@@ -41,46 +42,42 @@ export default function Projects() {
 
       <div className="grid gap-8">
         {projects.map((p, i) => (
-          <motion.div
-            key={i}
-            className="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
-          >
-            <div className="flex items-center gap-3 mb-2">
-              {p.icon}
-              <Link
-                href={p.link}
-                className="text-2xl font-semibold text-blue-800 hover:underline"
-              >
-                {p.title}
-              </Link>
+          <FadeInOnScroll key={i} delay={0.2 + i * 0.15}>
+            <div className="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white">
+              <div className="flex items-center gap-3 mb-2">
+                {p.icon}
+                <Link
+                  href={p.link}
+                  className="text-2xl font-semibold text-blue-800 hover:underline"
+                >
+                  {p.title}
+                </Link>
+              </div>
+              <p className="text-gray-700 mb-4">{p.description}</p>
+              <p className="mb-1 text-sm text-gray-500">
+                <strong>Tools:</strong> {p.tools.join(', ')}
+              </p>
+              <p className="mb-3 text-sm text-gray-500">
+                <strong>Model(s):</strong> {p.models.join(', ')}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href={p.colab}
+                  target="_blank"
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                >
+                  Open in Colab
+                </Link>
+                <Link
+                  href={p.github}
+                  target="_blank"
+                  className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition"
+                >
+                  View on GitHub
+                </Link>
+              </div>
             </div>
-            <p className="text-gray-700 mb-4">{p.description}</p>
-            <p className="mb-1 text-sm text-gray-500">
-              <strong>Tools:</strong> {p.tools.join(', ')}
-            </p>
-            <p className="mb-3 text-sm text-gray-500">
-              <strong>Model(s):</strong> {p.models.join(', ')}
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href={p.colab}
-                target="_blank"
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-              >
-                Open in Colab
-              </Link>
-              <Link
-                href={p.github}
-                target="_blank"
-                className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition"
-              >
-                View on GitHub
-              </Link>
-            </div>
-          </motion.div>
+          </FadeInOnScroll>
         ))}
       </div>
     </motion.main>
