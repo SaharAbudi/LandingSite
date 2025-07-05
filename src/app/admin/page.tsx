@@ -54,17 +54,11 @@ export default function AdminPage() {
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
-      <div className="flex justify-between items-center mb-10">
-        <h1 className="text-4xl font-bold text-blue-700 dark:text-blue-400">Admin Panel</h1>
-        <button
-          onClick={handleLogout}
-          className="text-sm text-red-600 dark:text-red-400 underline hover:text-red-800 dark:hover:text-red-300"
-        >
-          Logout
-        </button>
-      </div>
+      <h1 className="text-4xl font-bold text-blue-700 dark:text-blue-400 mb-10">
+        Admin Panel
+      </h1>
 
-      <div className="grid sm:grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-2 gap-6 mb-12">
         <Link href="/admin/add-project">
           <div className="flex items-center gap-4 p-5 rounded-xl border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-lg transition hover:bg-blue-50 dark:hover:bg-gray-700">
             <div className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 p-2 rounded-full">
@@ -100,6 +94,16 @@ export default function AdminPage() {
             </div>
           </div>
         </Link>
+      </div>
+
+      {/* Logout button */}
+      <div className="flex justify-center">
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow transition"
+        >
+          Log-out
+        </button>
       </div>
     </main>
   )
