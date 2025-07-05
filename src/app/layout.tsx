@@ -2,7 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Home, User, FolderOpen } from 'lucide-react'
+import { Home, User, FolderOpen, Settings } from 'lucide-react'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -59,6 +59,9 @@ export default function RootLayout({
               </Link>
               <Link href="/projects" className="flex items-center gap-2 hover:text-blue-200 transition">
                 <FolderOpen size={18} /> Projects
+              </Link>
+              <Link href="/admin" className="flex items-center gap-2 hover:text-yellow-200 transition">
+                <Settings size={18} /> Admin Panel
               </Link>
             </nav>
           </div>
