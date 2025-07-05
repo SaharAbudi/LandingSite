@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  experimental: {
+    css: {
+      // השבתת lightningcss — שימוש ב־postcss רגיל
+      loader: 'postcss'
+    }
+  }
+}
 
-export default nextConfig;
+module.exports = nextConfig
