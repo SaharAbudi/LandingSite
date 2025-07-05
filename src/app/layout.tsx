@@ -28,7 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <body className={`${inter.className} bg-[#F0F2F5] dark:bg-[#1e1e1e] text-gray-900 dark:text-gray-100 min-h-screen flex flex-col`}>
+      <body
+        className={`${inter.className} bg-[#F0F2F5] dark:bg-[#1e1e1e] text-gray-900 dark:text-gray-100 min-h-screen flex flex-col`}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           <main className="flex-grow w-full max-w-6xl mx-auto px-6 py-10">
