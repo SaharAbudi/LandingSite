@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "migrate": "bash migrate-to-yarn.sh",
+    "deploy": "next build && git add . && git commit -m 'build: deploy' && git push",
+    "open": "start https://sahar-portfolio.vercel.app/"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
@@ -32,6 +36,7 @@
     "eslint-config-next": "15.3.4",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
-    "tw-animate-css": "^1.3.5"
+    "tw-animate-css": "^1.3.5",
+    "typescript": "5.8.3"
   }
 }

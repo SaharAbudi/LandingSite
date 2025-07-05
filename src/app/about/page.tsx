@@ -6,6 +6,7 @@ import { db } from '@/lib/firebase'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Code, BarChart3, Database, BrainCog } from 'lucide-react'
 
 export default function About() {
   const [aboutText, setAboutText] = useState<string>('')
@@ -35,7 +36,9 @@ export default function About() {
     >
       <h1 className="text-4xl font-bold text-blue-800 mb-6">About Me</h1>
 
-      {/* טקסט שנשלף מ־Firebase */}
+      
+
+      {/* טקסט דינמי מ־Firebase */}
       <motion.p
         className="text-xl text-gray-700 leading-relaxed mb-8 whitespace-pre-line"
         initial={{ opacity: 0 }}
@@ -45,7 +48,7 @@ export default function About() {
         {aboutText}
       </motion.p>
 
-      {/* תמונה וסקילז קבועים (אפשר גם לשלוף בעתיד) */}
+      {/* תמונה וטכנולוגיות */}
       <motion.div
         className="flex flex-col md:flex-row items-center gap-8 mb-10"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -57,20 +60,23 @@ export default function About() {
           alt="Sahar Abudi"
           width={250}
           height={250}
-          className="rounded-full shadow-md"
+          className="rounded-full shadow-md hover:scale-105 transition-transform duration-300"
         />
-        <ul className="text-lg text-gray-800 leading-relaxed list-disc list-inside">
-          <h1 className="text-2xl font-bold text-blue-800 mb-6">My Toolbox:</h1>
-          <li>Python (Pandas, NumPy, scikit-learn)</li>
-          <li>SQL (PostgreSQL, BigQuery)</li>
-          <li>BI Tools (Power BI, Tableau)</li>
-          <li>RStudio, Excel, VBA, ML basics</li>
-          <li>Excel & automation with VBA</li>
-          <li>Data visualization & dashboarding</li>
-          <li>Machine Learning basics</li>
-        </ul>
+        <div>
+          <h2 className="text-2xl font-bold text-blue-800 mb-4">My Technical Stack</h2>
+          <ul className="text-lg text-gray-800 leading-relaxed list-disc list-inside space-y-1">
+            <li><Code size={16} className="inline-block mr-2" /> Python (Pandas, NumPy, scikit-learn)</li>
+            <li><Database size={16} className="inline-block mr-2" /> SQL (PostgreSQL, BigQuery)</li>
+            <li><BarChart3 size={16} className="inline-block mr-2" /> Power BI, Tableau</li>
+            <li><Code size={16} className="inline-block mr-2" /> Excel & automation with VBA</li>
+            <li><BrainCog size={16} className="inline-block mr-2" /> Machine Learning basics</li>
+          </ul>
+        </div>
       </motion.div>
 
+    
+
+      {/* כפתורי יצירת קשר */}
       <motion.div
         className="text-center mt-8 flex flex-col sm:flex-row justify-center gap-4"
         initial={{ opacity: 0, y: 20 }}
@@ -90,6 +96,13 @@ export default function About() {
         >
           Send Me an Email
         </a>
+        <Link
+          href="/CV_Sahar_Abudi.pdf"
+          target="_blank"
+          className="px-6 py-3 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-800 transition"
+        >
+          Download My CV
+        </Link>
       </motion.div>
     </motion.main>
   )
