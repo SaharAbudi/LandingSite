@@ -1,7 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, Home, User, FolderOpen, Settings } from 'lucide-react'
+import {
+  Menu,
+  X,
+  Home,
+  User,
+  FolderOpen,
+  Settings,
+  Mail,
+} from 'lucide-react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -46,6 +54,9 @@ export default function MobileMenu() {
               </Link>
               <Link href="/projects" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
                 <FolderOpen size={18} /> Projects
+              </Link>
+              <Link href="/contact" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
+                <Mail size={18} /> Contact
               </Link>
               <Link href="/admin" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
                 <Settings size={18} /> Admin Panel

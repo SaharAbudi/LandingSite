@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Plus, Pencil, Wrench } from 'lucide-react'
+import { Plus, Pencil, Wrench, Mail } from 'lucide-react'
 
 const ADMIN_PASSWORD = 'sahar123' // שנה לסיסמה חזקה יותר בפרודקשן
 
@@ -91,6 +91,18 @@ export default function AdminPage() {
             <div>
               <p className="text-lg font-semibold text-green-800 dark:text-green-300">Edit About Page</p>
               <p className="text-sm text-gray-500 dark:text-gray-400">Update your biography and background</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link href="/admin/view-messages">
+          <div className="flex items-center gap-4 p-5 rounded-xl border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-lg transition hover:bg-purple-50 dark:hover:bg-gray-700">
+            <div className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 p-2 rounded-full">
+              <Mail className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-lg font-semibold text-purple-800 dark:text-purple-300">View Messages</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Read incoming contact form messages</p>
             </div>
           </div>
         </Link>

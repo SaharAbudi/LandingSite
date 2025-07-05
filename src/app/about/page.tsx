@@ -6,25 +6,35 @@ import { db } from '@/lib/firebase'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Code, BarChart3, Database, BrainCog } from 'lucide-react'
 
 export default function About() {
   const [aboutText, setAboutText] = useState<string>('')
+  const [toolboxText, setToolboxText] = useState<string>('')
 
   useEffect(() => {
-    const fetchAbout = async () => {
-      const ref = doc(db, 'site_content', 'about')
-      const snap = await getDoc(ref)
+    const fetchAboutAndToolbox = async () => {
+      const aboutRef = doc(db, 'site_content', 'about')
+      const toolboxRef = doc(db, 'site_content', 'toolbox')
 
-      if (snap.exists()) {
-        const data = snap.data()
-        setAboutText(data.text || '')
+      const [aboutSnap, toolboxSnap] = await Promise.all([
+        getDoc(aboutRef),
+        getDoc(toolboxRef),
+      ])
+
+      if (aboutSnap.exists()) {
+        setAboutText(aboutSnap.data().text || '')
       } else {
         setAboutText('⚠️ No about content found in Firestore.')
       }
+
+      if (toolboxSnap.exists()) {
+        setToolboxText(toolboxSnap.data().text || '')
+      } else {
+        setToolboxText('⚠️ No toolbox content found in Firestore.')
+      }
     }
 
-    fetchAbout()
+    fetchAboutAndToolbox()
   }, [])
 
   return (
@@ -36,7 +46,7 @@ export default function About() {
     >
       <h1 className="text-4xl font-bold text-blue-800 dark:text-blue-400 mb-6">About Me</h1>
 
-      {/* טקסט דינמי מ־Firebase בפורמט HTML עשיר */}
+      {/* טקסט דינמי מ־Firestore: aboutText */}
       <motion.div
         className="prose dark:prose-invert max-w-none text-lg leading-relaxed mb-8"
         dangerouslySetInnerHTML={{ __html: aboutText }}
@@ -45,7 +55,7 @@ export default function About() {
         transition={{ delay: 0.2, duration: 0.6 }}
       />
 
-      {/* תמונה וטכנולוגיות */}
+      {/* תמונה וה־Toolbox הדינמי */}
       <motion.div
         className="flex flex-col md:flex-row items-center gap-8 mb-10"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -59,17 +69,17 @@ export default function About() {
           height={250}
           className="rounded-full shadow-md hover:scale-105 transition-transform duration-300"
         />
-        <div>
+
+        <div className="flex-1">
           <h2 className="text-2xl font-bold text-blue-800 dark:text-blue-400 mb-4">
             My Technical Stack
           </h2>
-          <ul className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed list-disc list-inside space-y-1">
-            <li><Code size={16} className="inline-block mr-2" /> Python (Pandas, NumPy, scikit-learn)</li>
-            <li><Database size={16} className="inline-block mr-2" /> SQL (PostgreSQL, BigQuery)</li>
-            <li><BarChart3 size={16} className="inline-block mr-2" /> Power BI, Tableau</li>
-            <li><Code size={16} className="inline-block mr-2" /> Excel & automation with VBA</li>
-            <li><BrainCog size={16} className="inline-block mr-2" /> Machine Learning basics</li>
-          </ul>
+
+          {/* toolboxText מוצג כ־HTML דינאמי */}
+          <div
+            className="prose dark:prose-invert text-gray-800 dark:text-gray-200"
+            dangerouslySetInnerHTML={{ __html: toolboxText }}
+          />
         </div>
       </motion.div>
 
