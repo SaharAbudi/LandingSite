@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center px-6 py-16 bg-gradient-to-b from-white to-blue-50 text-center">
+    <main className="flex min-h-screen flex-col items-center px-6 py-16 text-center">
       <motion.div
         className="mb-8"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -14,16 +14,16 @@ export default function Home() {
         transition={{ duration: 0.8 }}
       >
         <Image
-          src="/og-image.jpg" // שנה לשם התמונה שיש לך ב־public או מחק אם לא קיים
+          src="/og-image.jpg"
           alt="Sahar Abudi"
           width={250}
           height={250}
-          className="rounded-full border-4 border-blue-300 shadow-md"
+          className="rounded-full border-4 border-blue-300 dark:border-blue-600 shadow-md"
         />
       </motion.div>
 
       <motion.h1
-        className="text-5xl md:text-6xl font-extrabold text-blue-800"
+        className="text-5xl md:text-6xl font-extrabold text-blue-800 dark:text-blue-400"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -32,7 +32,7 @@ export default function Home() {
       </motion.h1>
 
       <motion.p
-        className="mt-6 text-lg md:text-xl text-gray-700 max-w-2xl"
+        className="mt-6 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.8 }}
@@ -55,7 +55,7 @@ export default function Home() {
         </Link>
         <Link
           href="/about"
-          className="px-6 py-3 bg-white border border-blue-700 text-blue-700 rounded-xl hover:bg-blue-50 transition"
+          className="px-6 py-3 bg-white dark:bg-transparent border border-blue-700 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900 transition"
         >
           About Me
         </Link>

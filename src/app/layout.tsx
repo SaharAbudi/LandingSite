@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -26,13 +27,15 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`bg-[#F0F2F5] text-gray-900 ${inter.className} min-h-screen flex flex-col`}>
-        <Header />
-        <main className="flex-grow w-full max-w-6xl mx-auto px-6 py-10">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <body className={`${inter.className} bg-[#F0F2F5] dark:bg-[#1e1e1e] text-gray-900 dark:text-gray-100 min-h-screen flex flex-col`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
+          <main className="flex-grow w-full max-w-6xl mx-auto px-6 py-10">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )

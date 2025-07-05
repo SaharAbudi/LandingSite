@@ -1,19 +1,21 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { collection, getDocs, query, orderBy } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../lib/firebase'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import FadeInOnScroll from '../../components/FadeInOnScroll'
 
 interface Project {
+  id?: string
   title: string
   description: string
   tools: string[] | string
   models: string[] | string
   colab?: string
   github?: string
+  order?: number
 }
 
 export default function Projects() {
@@ -21,10 +23,20 @@ export default function Projects() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'))
-      const snapshot = await getDocs(q)
-      const data = snapshot.docs.map(doc => doc.data() as Project)
-      setProjects(data)
+      const snapshot = await getDocs(collection(db, 'projects'))
+      const data = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as Project[]
+
+      // Sort by 'order' if exists, otherwise place at the end
+      const sorted = data.sort((a, b) => {
+        const orderA = a.order ?? Infinity
+        const orderB = b.order ?? Infinity
+        return orderA - orderB
+      })
+
+      setProjects(sorted)
     }
 
     fetchProjects()
@@ -37,23 +49,25 @@ export default function Projects() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <h1 className="text-4xl font-bold text-blue-800 mb-10">My Projects</h1>
+      <h1 className="text-4xl font-bold text-blue-800 dark:text-blue-400 mb-10">
+        My Projects
+      </h1>
 
       <div className="grid gap-8">
         {projects.map((p, i) => (
-          <FadeInOnScroll key={i} delay={0.2 + i * 0.15}>
-            <div className="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white">
+          <FadeInOnScroll key={p.id || i} delay={0.2 + i * 0.15}>
+            <div className="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white dark:bg-[#1f2937] border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl font-semibold text-blue-800">
+                <span className="text-2xl font-semibold text-blue-800 dark:text-blue-300">
                   {p.title}
                 </span>
               </div>
-              <p className="text-gray-700 mb-4">{p.description}</p>
-              <p className="mb-1 text-sm text-gray-500">
+              <p className="text-gray-700 dark:text-gray-300 mb-4">{p.description}</p>
+              <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
                 <strong>Tools:</strong>{' '}
                 {Array.isArray(p.tools) ? p.tools.join(', ') : p.tools}
               </p>
-              <p className="mb-3 text-sm text-gray-500">
+              <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">
                 <strong>Model(s):</strong>{' '}
                 {Array.isArray(p.models) ? p.models.join(', ') : p.models}
               </p>
