@@ -1,56 +1,36 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Plus, Pencil, Wrench, Mail } from 'lucide-react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/lib/firebase'
+import { signOut } from 'firebase/auth'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-const ADMIN_PASSWORD = 'sahar123' // שנה לסיסמה חזקה יותר בפרודקשן
+const ADMIN_EMAIL = 'admin@admin.com' // הכנס כאן את האימייל שלך בלבד
 
 export default function AdminPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [inputPassword, setInputPassword] = useState('')
+  const [user, loading] = useAuthState(auth)
+  const router = useRouter()
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isAdmin') === 'true'
-    if (isLoggedIn) setIsAuthenticated(true)
-  }, [])
-
-  const handleLogin = () => {
-    if (inputPassword === ADMIN_PASSWORD) {
-      localStorage.setItem('isAdmin', 'true')
-      setIsAuthenticated(true)
-    } else {
-      alert('❌ סיסמה שגויה')
+    if (!loading) {
+      if (!user || user.email !== ADMIN_EMAIL) {
+        router.push('/')  // מפנה לדף הבית אם לא מחובר או לא מנהל
+      }
     }
-  }
+  }, [user, loading, router])
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAdmin')
-    setIsAuthenticated(false)
-  }
-
-  if (!isAuthenticated) {
+  if (loading) {
     return (
       <main className="max-w-sm mx-auto px-6 py-20 text-center">
-        <h2 className="text-2xl font-semibold text-blue-700 dark:text-blue-400 mb-4">
-          Admin Login (PASSWORD: SAHAR123)
-        </h2>
-        <input
-          type="password"
-          value={inputPassword}
-          onChange={e => setInputPassword(e.target.value)}
-          placeholder="Enter admin password"
-          className="border border-gray-300 dark:border-gray-600 p-2 w-full rounded mb-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
-        />
-        <button
-          onClick={handleLogin}
-          className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 w-full transition"
-        >
-          Login
-        </button>
+        <p>Loading...</p>
       </main>
     )
   }
+
+  if (!user || user.email !== ADMIN_EMAIL) return null // מונע רנדר בזמן המעבר
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
@@ -111,7 +91,7 @@ export default function AdminPage() {
       {/* Logout button */}
       <div className="flex justify-center">
         <button
-          onClick={handleLogout}
+          onClick={() => signOut(auth)}
           className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow transition"
         >
           Log-out

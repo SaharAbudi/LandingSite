@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import Link from 'next/link'
+import { toast } from 'react-hot-toast'
 
 export default function AddProjectPage() {
   const [title, setTitle] = useState('')
@@ -13,10 +14,10 @@ export default function AddProjectPage() {
   const [tools, setTools] = useState('')
   const [models, setModels] = useState('')
   const [link, setLink] = useState('')
-  const [status, setStatus] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const toastId = toast.loading('⏳ Adding project...')
 
     try {
       await addDoc(collection(db, 'projects'), {
@@ -30,7 +31,7 @@ export default function AddProjectPage() {
         createdAt: new Date(),
       })
 
-      setStatus('✅ Project added successfully!')
+      toast.success('✅ Project added successfully!', { id: toastId })
       setTitle('')
       setDescription('')
       setGithub('')
@@ -38,11 +39,9 @@ export default function AddProjectPage() {
       setTools('')
       setModels('')
       setLink('')
-
-      setTimeout(() => setStatus(''), 3000)
     } catch (error) {
       console.error('Error adding project:', error)
-      setStatus('❌ Failed to add project')
+      toast.error('❌ Failed to add project', { id: toastId })
     }
   }
 
@@ -99,10 +98,6 @@ export default function AddProjectPage() {
           ➕ Add Project
         </button>
       </form>
-
-      {status && (
-        <p className="mt-4 text-sm font-medium text-green-700">{status}</p>
-      )}
     </main>
   )
 }
