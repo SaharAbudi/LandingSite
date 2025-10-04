@@ -1,109 +1,111 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function Home() {
-  const [isReady, setIsReady] = useState(false)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsReady(true), 300)
-    return () => clearTimeout(timeout)
-  }, [])
-
-  const containerVariants = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
-
   return (
-    <main className="flex min-h-screen flex-col items-center px-6 py-16 text-center">
-      {/* תמונה עגולה */}
+    <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center bg-background text-foreground">
+      {/* שם וכותרת */}
       <motion.div
-        className="mb-8"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
-        <Image
-          src="/og-image.jpg"
-          alt="Sahar Abudi"
-          width={250}
-          height={250}
-          className="rounded-full border-4 border-blue-300 dark:border-blue-600 shadow-md"
-        />
+        <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight">
+          Sahar Abudi
+        </h1>
+        <p className="mt-4 text-xl text-muted-foreground">
+          Data Analyst · Turning Data Into Strategic Insights
+        </p>
       </motion.div>
 
-      {/* תוכן אנימטיבי */}
-      {isReady && (
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="flex flex-col items-center"
-        >
-          {/* שם */}
-          <motion.h1
-            variants={fadeInUp}
-            className="text-5xl md:text-6xl font-extrabold text-blue-800 dark:text-blue-400"
-          >
-            Sahar Abudi
-          </motion.h1>
-
-          {/* כותרת משנה */}
-          <motion.p
-            variants={fadeInUp}
-            className="mt-4 text-lg md:text-xl text-gray-700 dark:text-gray-300"
-          >
-            Data Analyst | Project Manager | Technology Management
-          </motion.p>
-
-          {/* תיאור כללי */}
-          <motion.p
-            variants={fadeInUp}
-            className="mt-6 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl"
-          >
-            I specialize in transforming data into business value. From marketing insights to strategic dashboards,
-            my work bridges the gap between data and decisions.
-          </motion.p>
-
-          {/* כפתורים */}
+      {/* קלפים */}
+      <motion.div
+        className="mt-16 grid gap-6 sm:grid-cols-3 max-w-5xl w-full"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          visible: { transition: { staggerChildren: 0.2 } },
+        }}
+      >
+        {[
+          {
+            title: 'Data Analysis',
+            desc: 'Exploring complex datasets to uncover trends, patterns, and actionable business insights.',
+            link: '/projects',
+          },
+          {
+            title: 'Visualization',
+            desc: 'Designing clear and interactive dashboards using Excel, Tableau and Power BI.',
+            link: '/projects',
+          },
+          {
+            title: 'Business Impact',
+            desc: 'Transforming data into stories that support decisions and optimize performance.',
+            link: '/about',
+          },
+        ].map((card, i) => (
           <motion.div
-            variants={fadeInUp}
-            className="mt-10 flex flex-wrap gap-4 justify-center"
+            key={i}
+            whileHover={{ y: -4 }}
+            className="bg-card border border-border rounded-2xl p-6 text-left shadow-sm hover:shadow-md transition"
           >
+            <h2 className="text-2xl font-semibold mb-3 text-primary">
+              {card.title}
+            </h2>
+            <p className="text-muted-foreground mb-4">{card.desc}</p>
             <Link
-              href="/projects"
-              className="px-6 py-3 bg-blue-700 text-white rounded-xl shadow hover:bg-blue-800 transition"
+              href={card.link}
+              className="text-primary font-medium hover:underline"
             >
-              View Projects
-            </Link>
-            <Link
-              href="/about"
-              className="px-6 py-3 bg-white dark:bg-transparent border border-blue-700 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900 transition"
-            >
-              About Me
-            </Link>
-            <Link
-              href="/contact"
-              className="px-6 py-3 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 transition"
-            >
-              Contact
+              Learn more →
             </Link>
           </motion.div>
-        </motion.div>
-      )}
+        ))}
+      </motion.div>
+
+      {/* סקילס */}
+      <motion.div
+        className="mt-16 flex flex-wrap justify-center gap-3 text-muted-foreground text-sm max-w-3xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+      >
+        {[
+          'Excel',
+          'SQL',
+          'Python (Pandas, NumPy)',
+          'Tableau',
+          'Power BI',
+          'Data Cleaning',
+          'ETL',
+          'Reporting',
+          'Dashboard Design',
+        ].map((skill) => (
+          <span
+            key={skill}
+            className="bg-secondary px-3 py-1 rounded-full border border-border"
+          >
+            {skill}
+          </span>
+        ))}
+      </motion.div>
+
+      {/* קריאה לפעולה */}
+      <motion.div
+        className="mt-16"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+      >
+        <Link
+          href="/projects"
+          className="px-8 py-3 bg-primary text-primary-foreground rounded-xl shadow hover:bg-primary/80 transition"
+        >
+          View Analytical Projects
+        </Link>
+      </motion.div>
     </main>
   )
 }
